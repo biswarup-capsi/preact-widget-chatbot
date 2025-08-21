@@ -8,8 +8,8 @@ export default defineConfig({
     lib: {
       entry: 'src/main.jsx',
       name: 'ChatWidget', // Global variable name in window.ChatWidget
-      fileName: () => `chat-widget.iife.js`,
-      formats: ['iife'],
+      // fileName: () => `chat-widget`,
+      formats: ['iife','es','cjs','umd','system'],
     },
     rollupOptions: {
       output: {

@@ -407,32 +407,6 @@
 }
 
 
-
-
-
-
-@media only screen and (max-width: 375px) {
-  .chat-dialog {
-    width: 350px;
-    margin: 0;
-  }
-
-  .input {
-    width: 332px;
-  }
-}
-@media only screen and (max-width: 320px) {
-  .chat-dialog {
-    right: 0;
-    width: 310px;
-    margin: 0;
-  }
-
-  .chat-body{
-    width: 300px;
-  }
-}
-
 /* Fly transition for vertical movement (y-axis) */
 .fly-y {
   animation: flyY 0.3s ease forwards;
@@ -462,5 +436,29 @@
   to {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+
+@media only screen and (max-width: 375px) {
+  .chat-dialog {
+    width: 350px;
+    margin: 0;
+  }
+
+  .input {
+    width: 332px;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .chat-dialog {
+    position: fixed;
+    right: 1px;
+    width: 340px;
+    margin: 0;
+  }
+
+  .chat-body{
+    width: 300px;
   }
 }

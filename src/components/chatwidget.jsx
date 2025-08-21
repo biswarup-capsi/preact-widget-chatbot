@@ -11,7 +11,7 @@ export default function ChatWidget() {
     // const [payload, setPayload] = useState("");
 
     const handleOpen = () => {
-        setOpen(true);
+        setOpen(val=>!val);
     };
 
     const handleOpenFaq = () => {
