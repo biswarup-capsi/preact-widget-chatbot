@@ -7,8 +7,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: 'src/main.jsx',
-      name: 'ChatWidget', // Global variable name in window.ChatWidget
-      // fileName: () => `chat-widget`,
+      name: 'ChatWidget', 
       formats: ['iife','es','cjs','umd','system'],
     },
     rollupOptions: {

@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useState, useEffect } from 'preact/hooks';
+// import axios from 'axios';
+import { useState, useEffect} from 'preact/hooks';
 
 export default function ChatWidget() {
     const [showBot, setShowBot] = useState(true);
@@ -8,41 +8,62 @@ export default function ChatWidget() {
     const [openChat, setOpenChat] = useState(false);
     const [openAgent, setOpenAgent] = useState(false);
     const [users, setUsers] = useState([{ name: 'John' }]);
-    // const [payload, setPayload] = useState("");
 
     const handleOpen = () => {
-        setOpen(val=>!val);
+        setOpen(prev => !prev);
     };
 
     const handleOpenFaq = () => {
         setOpen(false);
         setOpenFaq(true);
+        setOpenChat(false);
+        setOpenAgent(false);
     };
 
     const handleOpenChat = () => {
         setOpen(false);
+        setOpenFaq(false);
         setOpenChat(true);
+        setOpenAgent(false);
         setShowBot(false);
     };
 
     const handleOpenAgent = () => {
+        setOpen(false);
         setOpenFaq(false);
+        setOpenChat(false);
         setOpenAgent(true);
         setShowBot(false);
     };
 
+    const faqs = ["How do I apply?", "What courses do you offer?", "When do applications close?", "Where is the campus located?", "Talk to someone?"];
+
     useEffect(() => {
         ; (async function () {
-            const res = await axios.get("https://jsonplaceholder.typicode.com/users")
-            setUsers(res.data);
+            // const res = await axios.get("https://jsonplaceholder.typicode.com/users")
+            // setUsers(res.data);
+            // console.log(res)
+            await fetch("https://jsonplaceholder.typicode.com/users")
+                .then(res=>res.json())
+                .then(data => setUsers(data))
+                .catch(err=>console.log(err)) 
         })();
+
         let payload = document.getElementById("my-script")?.getAttribute("data-payload") || "hi";
-        // setPayload(id);
+        const position = document.getElementById("my-script")?.getAttribute("data-position") || "right";
+        // console.log(position)
+
+            if (position === 'left') {
+                document.documentElement.style.setProperty('--host-left', '1%');
+            } else {
+                document.documentElement.style.setProperty('--host-right', '1%');
+            }
+        
         console.log("payload id: " + payload)
     },[])
 
     return (
-        <div>
+        <div id='chat-root'>
             {showBot && (
                 <div
                     className="chat-icon"
@@ -120,11 +141,7 @@ export default function ChatWidget() {
                 <div className="faq-box">
                     <div className="faq-options">
                         <ul className="faq-options-li">
-                            <li>How do I apply?</li>
-                            <li>What courses do you offer?</li>
-                            <li>When do applications close?</li>
-                            <li>Where is the campus located?</li>
-                            <li>Talk to someone?</li>
+                            {faqs.map((faq, index) => (<li key={index}>{faq}</li>))}
                             <div
                                 id="talk-btn"
                                 onClick={handleOpenAgent}
@@ -155,9 +172,11 @@ export default function ChatWidget() {
                                 setOpenChat(false);
                                 setShowBot(true);
                             }}
-                            onKeyDown={(e) => e.key === 'Enter' && setOpenChat(false)}
+                            onKeyDown={(e) => e.key === 'Enter' && (() => {
+                                setOpenChat(false);
+                                setShowBot(true);
+                            })()}
                         >
-                            {/* Close Icon */}
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></svg>
                         </div>
                     </div>
@@ -166,11 +185,7 @@ export default function ChatWidget() {
                             <p className="bot-msg">Hi! How Can I help You?</p>
                             <div className="chat-options">
                                 <ul id="chat-options">
-                                    <li>How do I apply?</li>
-                                    <li>What courses do you offer?</li>
-                                    <li>When do applications close?</li>
-                                    <li>Where is the campus located?</li>
-                                    <li>Talk to someone?</li>
+                                    {faqs.map((faq, index) => (<li key={index}>{faq}</li>))}
                                 </ul>
                             </div>
                         </div>
@@ -207,7 +222,10 @@ export default function ChatWidget() {
                                 setOpenFaq(false);
                                 setShowBot(true);
                             }}
-                            onKeyDown={(e) => e.key === 'Enter' && setOpenAgent(false)}
+                            onKeyDown={(e) => e.key === 'Enter' && (() => {
+                                setOpenAgent(false);
+                                setOpenFaq(false);
+                                setShowBot(true);})()}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-x-icon lucide-circle-x"><circle cx="12" cy="12" r="10" /><path d="m15 9-6 6" /><path d="m9 9 6 6" /></svg>
                         </div>

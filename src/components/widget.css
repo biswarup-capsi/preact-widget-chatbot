@@ -1,8 +1,9 @@
 :host {
-  all: initial;
   position: fixed;
   bottom: 1rem;
-  right: 1rem;
+  /* right: 1rem; */
+  left: var(--host-left); 
+  right: var(--host-right);
   z-index: 9999;
 }
 
@@ -30,7 +31,9 @@
 .chat-dialog {
   position: absolute;
   bottom: 20px;
-  right: 5%;
+  /* right: 5%; */
+  right: var(--host-right);
+  left: var(--host-left);
   width: 400px;
   height: 618px;
   background: white;
@@ -43,7 +46,9 @@
 
 .welcome-box {
   position: fixed;
-  right: 1%;
+  /* right: 1%; */
+  right: var(--host-right);
+  left: var(--host-left);
   bottom: 90px;
   display: flex;
   flex-direction: column;
@@ -273,7 +278,9 @@
   flex-direction: column;
   position: fixed;
   bottom: 50px;
-  right: 1%;
+  /* right: 1%; */
+  right: var(--host-right);
+  left: var(--host-left);
 }
 
 .faq-options {
@@ -355,7 +362,9 @@
 .chat-dialog {
   position: absolute;
   bottom: 20px;
-  right: 5%;
+  /* right: 5%; */
+  right: var(--host-right);
+  left: var(--host-left);
   width: 400px;
   height: 618px;
   background: white;
@@ -441,7 +450,7 @@
 }
 
 
-@media only screen and (max-width: 375px) {
+@media only screen and (max-width: 390px) {
   .chat-dialog {
     width: 350px;
     margin: 0;
@@ -451,7 +460,10 @@
     width: 332px;
   }
 }
-@media only screen and (max-width: 320px) {
+@media only screen and (max-width: 350px) {
+  :host{
+    font-size:small;
+  }
   .chat-dialog {
     position: fixed;
     right: 1px;
@@ -461,5 +473,9 @@
 
   .chat-body{
     width: 300px;
+  }
+
+  .input{
+    width: 95%;
   }
 }
